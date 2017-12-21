@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="icon" type="image/png" href="lib/images/logo.png">
+	<title>Zombie park</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="lib/css/custom.css">
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>Zombie park</h2>
+				<figure><img src="lib/images/back.jpg" alt=""></figure>
+			</section>
+			<section>
+				<h2>Game State</h2>
+				<p class="game-satate">Launcher</p>
+				<p class="game-satate">LoadingScreen</p>
+				<p class="game-satate">Gameplay</p>
+			</section>
+			<section>
+					<h2>Game area</h2>
+					<figure><img src="lib/images/scrht2.jpg" alt=""></figure>
+			</section>
+			<section>
+				<h2>Hero</h2>
+					
+					<section id="fragments">
+						<figure class="wrap-img"><img src="lib/images/eric.png" alt=""></figure>
+					</section>
+					<section id="fragments">
+						<pre>
+	     <code>
+createPlayer: function () {
+  this.player.scale.setTo(0.6);
+  this.player.body.mass = 0,
+  this.add.tween(this.player).to({ y: height * 0.65 }, 1000, Phaser.Easing.Quadratic.In, true, 0, 0, false);
+  //walk
+  this.player.animations.add("WalkUp", [9, 10, 11], 20, false, true);
+  this.player.animations.add("WalkSide", [3, 4, 2], 20, false, true);
+  this.player.animations.add("WalkFire", [0, 5, 6], 10, false, true);
+  this.player.animations.add("WalkDamage", [12], 20, false, true);
+  /*health*/
+  this.player.health = this.player.maxHealth = 10;
+  this.emptyHP = this.add.sprite((width - 195), 5, "HealthEmpty");
+  this.fullHP = this.add.sprite((width - 195), 5, "HealthFull", 1);
+  this.life = this.add.sprite((this.emptyHP.x - 15), 15, "Life", 2);
+  this.HPRect = new Phaser.Rectangle(0, 0, this.emptyHP.width, this.emptyHP.height);
+  this.time.events.add(Phaser.Timer.SECOND * 1, applyBounds, this);
+  function applyBounds() {
+    this.player.body.collideWorldBounds = true;
+  }
+}
+					</code>
+				</pre>
+				</section>
+			</section>
+		<section>
+				<h2>Enemies</h2>
+					
+					<section id="fragments">
+						<div class="flex-container">
+							<figure class="wrap-img"><img src="lib/images/enemy.png" alt=""></figure>
+							<figure class="wrap-img"><img src="lib/images/small_boss.png" alt=""></figure>
+							<figure class="wrap-img"><img src="lib/images/big_boss.png" alt=""></figure>
+						</div>
+					</section>
+					<section id="fragments">
+						<pre>
+	     <code>
+function EnemyFactory() {
+  this.enemiesTotal = {
+    turkey: 180,
+    kenny: 1,
+    chief: 1
+  };
+  this.remaining = JSON.parse(JSON.stringify(this.enemiesTotal));
+  this.createNext = function () {
+    for (var key in this.enemiesTotal) {
+      if (this.remaining[key] > 0) {
+        this.remaining[key]--;
+          return key;
+        }
+      }
+  }
+}
+					</code>
+				</pre>
+				</section>
+				<section id="fragments">
+					<pre><code>
+createEnemies: function () {
+  this.latestEnemy = this.enemyCreator.createNext();
+  if (this.latestEnemy === "turkey") {
+  	this.createCreep();
+  }
+  if (this.latestEnemy === "kenny") {
+  	this.createSmallBoss();
+    this.time.events.add(Phaser.Timer.SECOND * 2, this.createCandy, this);
+    this.time.events.add(Phaser.Timer.SECOND * 10, this.disappearanceCandy, this);
+  }
+  if (this.latestEnemy === "chief") {
+    this.time.events.add(Phaser.Timer.SECOND * 2.5, this.createBigBoss, this);
+  }
+    this.timer = this.time.now + this.game.rnd.integerInRange(150, 1000);
+}						
+						</code></pre>
+				</section>
+				<section id="fragments">
+					<h4>Turkey</h4>
+					<pre><code>	
+createCreep: function () {
+  var leftEnemyConfig = {
+    startPoint: { x: width + 300, y: this.world.randomY * 0.3 + height / 2 },
+    endPoint: { x: -170 }
+  };
+  var rightEnemyConfig = {
+    startPoint: { x: -170, y: this.world.randomY * 0.3 + height / 2 },
+    endPoint: { x: width + 350 }
+  };
+  var currentConfig;
+    if (this.game.rnd.integerInRange(0, 1) == 1) {
+    	currentConfig = leftEnemyConfig;
+    } else {
+    	currentConfig = rightEnemyConfig;
+    };
+    var enemy = this.enemies.create(currentConfig.startPoint.x, currentConfig.startPoint.y, 'Enemy');
+      enemy.body.mass = 1;
+      enemy.animations.add('walk');
+      enemy.animations.play('walk', 10, true);
+      this.add.tween(enemy).to(currentConfig.endPoint, 8000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+      if (enemy.y > 400) {
+      	enemy.scale.setTo(0.7);
+      }
+      else if (enemy.y < 400) {
+        enemy.scale.setTo(0.4);
+      }
+  }
+					</code></pre>
+				</section>
+<section id="fragments">
+					<h4>Kenny</h4>
+					<pre><code>	
+createSmallBoss: function () {
+  var smallBoss = this.boss.create(width + 5, this.world.randomY * 0.3 + 400, 'SmallBoss');
+  smallBoss.animations.add('walk');
+  smallBoss.animations.play('walk', 10, true);
+  smallBoss.scale.setTo(0.45);
+  smallBoss.smoothed = true;
+  smallBoss.health = 90;
+  customMethods.createRandomMove(this.player, 1500, smallBoss, 0.37, height / 2, 2300);
+  this.time.events.add(Phaser.Timer.SECOND * 5, soundOfBosses, this);
+  function soundOfBosses() {
+  	if (smallBoss.health > 0) {
+      this.smallBossVoice.play('', 0, 0.6, false);
+    }
+  }
+}
+					</code></pre>
+				</section>					
+
+<section id="fragments">
+					<h4>Chief</h4>
+					<pre><code>	
+createBigBoss: function () {
+  var bigBoss = this.boss.create(width + 5, this.world.randomY * 0.3 + 400, 'BigBoss');
+  bigBoss.animations.add('walk');
+  bigBoss.animations.play('walk', 2, true);
+  this.add.tween(bigBoss).to({ x: 0 }, 4000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+  bigBoss.scale.setTo(0.9);
+  bigBoss.smoothed = true;
+  bigBoss.health = 100;
+  customMethods.createRandomMove(this.player, 1700, bigBoss, 0.3, height / 3, 1800);
+  bigBoss.smoothed = false;
+  this.inBigBoss.play('', 0, 0.75, false);
+  this.time.events.add(Phaser.Timer.SECOND * 7, soundOfBosses, this);
+  function soundOfBosses() {
+    if (bigBoss.health > 0) {
+      this.bigBossSong.play('', 0, 0.75, false);
+    }
+  }
+}
+					</code></pre>
+				</section>					
+			</section>
+<section>
+	<h2>Shoot</h2>
+	<section id="fragments">
+				<figure class="wrap-img img-bullet"><img src="lib/images/snow_ball.png" alt=""></figure>
+	</section>
+	<section id="fragments">
+				<pre><code>
+createBullets: function () {
+  this.bulletTimer = 0;
+  this.bullets.setAll("outOfBoundsKill", true);
+  this.bullets.setAll("checkWorldBounds", true);
+},
+fire: function () {
+  if (this.time.now > this.bulletTimer) {
+    var bullet = this.bullets.getFirstExists(false, false, this.player.x - 50, this.player.y + 25);
+    if (bullet) {
+      bullet.angle = this.player.angle + 50;
+      this.physics.arcade.moveToPointer(bullet, customValues.bulletProjectileSpeed);
+      this.bulletTimer = this.time.now + customValues.playerFireRate;
+    }
+  }
+}
+					</code></pre>
+	</section>	
+</section>
+<section>
+	<h2>Damage Player</h2>
+	<section id="fragments">
+				<pre><code>
+this.physics.arcade.collide(this.player, [this.enemies, this.boss], this.damagePlayer, null, this);
+
+damagePlayer: function (player, enemy) {
+  this.player.animations.play("WalkDamage", true);
+  if (enemy.key == "Enemy") {
+    player.damage(2);
+    this.playerWound.play("", 0, 0.5, false);
+    this.voiceDamage.play("", 0, 0.5, false);
+  }
+  if (enemy.key == "SmallBoss") {
+    player.damage(3);
+  }
+  if (enemy.key == "BigBoss") {
+    player.damage(10);
+  }
+  if (!this.game.paused || this.enemies.countLiving() > 0) {
+    this.HPRect.width = Math.floor((this.player.health / this.player.maxHealth) * this.emptyHP.width);
+    this.fullHP.crop(this.HPRect);
+    this.gameOverMessage.exists = (this.player.health <= 0);
+  }
+  if (this.gameOverMessage.exists) {
+    this.endOfGame();
+    this.enemies.kill();
+    this.playerCry.fadeIn(1000);
+   }
+}
+					</code></pre>
+	</section>	
+</section>
+<section>
+	<h2>Resolution</h2>
+  	<section id="fragments">
+				<figure class="wrap-img"><img src="lib/images/mob.jpg" alt=""></figure>
+	</section>
+		<section id="fragments">
+			<pre><code>
+this.input.onTap.add(this.onTap, this);
+				</code></pre>
+		</section>
+</section>
+<section>
+	<h2>Problems</h2>
+	<section id="fragments">
+				<h4>Random movement of the boss</h4>
+				
+		<pre><code>
+customMethods.createRandomMove(this.player, 1500, smallBoss, 0.37, height / 2, 2300);
+
+createRandomMove: function (player, loop, boss, range, minTop, speed) {
+	var move = Wrap.game.time.events.loop(loop, function () {
+		Wrap.game.add.tween(boss).to({
+			x: player.x,
+			y: Wrap.game.world.randomY * range + minTop
+		}, speed, Phaser.Easing.Quadratic.InOut, true);
+  }, this);
+  return move;
+}
+			</code></pre>
+	</section>
+	<section id="fragments">
+				<h4>Adaptive background</h4>
+				
+		<pre><code>
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+Wrap.game = new Phaser.Game(width, height, Phaser.CANVAS);
+
+this.back.height = this.world.height;
+  if (width > height) {
+  this.back.width = this.world.width;
+}
+			</code></pre>
+	</section>
+
+</section>
+<section>
+	<h2>Useful links:</h2>
+	<ul>
+		<li><a href="https://kate-m.github.io/main-game/">Play game</a></li>
+		<li><a href="https://github.com/Kate-M/main-game">Source code</a></li>
+		<li><a href="http://phaser.io/">Phaser.js</a></li>
+	</ul>
+</section>
+<section>
+	<h2>Thank you for your attention!</h2>
+	<figure class="flex cat-box">
+		<object class="pacman-box" type="image/svg+xml" data="lib/images/cat-svg.svg"></object>
+	</figure>
+</section>
+</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script src="lib/js/custom.js"></script>
+<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+</script>
+</body>
+
+</html>

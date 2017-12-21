@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Zombie park</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="application-name" content="Zombie park">
+	<meta name="msapplication-TileImage" content="images/favicon.png">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="stylesheet" href="css/style.css">
+
+
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+	<div class="loaderArea">
+		<div class="load">
+			<div class="preloader-box">
+				<div class="preloader-container">
+					<div class="preloader-glass">
+						<div class="preloader-cap-left"></div>
+						<div class="preloader-cap-right"></div>
+						<div class="preloader-fill">
+							<div class="preloader-bubble-1"></div>
+							<div class="preloader-bubble-2"></div>
+							<div class="preloader-bubble-3"></div>
+							<div class="preloader-bubble-4"></div>
+							<div class="preloader-bubble-5"></div>
+							<div class="preloader-bubble-6"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper">
+		<header id="header">
+			<div class="container container-grid">
+				<div class="logo">
+					<a href="#">
+						<h1>Zombie</br>park</h1>
+					</a>
+				</div>
+				<nav>
+					<ul class="menu container-grid">
+						<li>
+							<a href="#about" class="menu-item">About</a>
+						</li>
+						<li>
+							<a href="#controls" class="menu-item">Controls</a>
+						</li>
+						<li>
+							<a href="#screenshots" class="menu-item">Screenshots</a>
+						</li>
+						<li>
+							<a href="#start" class="menu-item">Start</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main>
+			<section id="banner" class="banner-area">
+				<a href="#about" class="btn-down">
+					<img src="images/blood.svg" alt="">
+				</a>
+				<a href="#header" class="btn-up hide">
+					<img src="images/up-arrow.svg" alt="">
+				</a>
+			</section>
+			<section id="about" class="about">
+				<div class="container">
+					<h2>About</h2>
+					<ul class="about-list container-grid">
+						<li>
+							<figure class="about-thumb">
+								<div class="about-img-wrap">
+									<img class="about-img" src="images/about1.png" alt="">
+								</div>
+								<figcaption class="about-text">
+									<h3>History</h3>
+									<p>Strange things happen in South Park. Lots of turkey-mutants come to the town. And some say rumors that dead bodies are waking up from their graves...</p>
+								</figcaption>
+							</figure>
+						</li>
+						<li>
+							<figure class="about-thumb">
+								<div class="about-img-wrap">
+									<img class="about-img" src="images/about2.png" alt="">
+								</div>
+								<figcaption class="about-text">
+									<h3>Technologies</h3>
+									<p>This game is created with help of <a href="http://phaser.io">Phaser.io</a>, JS, CSS, HTML</p>
+								</figcaption>
+							</figure>
+						</li>
+						<li>
+							<figure class="about-thumb">
+								<div class="about-img-wrap">
+									<img class="about-img" src="images/about3.png" alt="">
+								</div>
+								<figcaption class="about-text">
+									<h3>Resolution</h3>
+									<p>This game tries to be adaptive but you use it on your own risk.</p>
+								</figcaption>
+							</figure>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section id="controls" class="controls">
+				<div class="container">
+					<h2>Controls</h2>
+					<div class="controls-text">
+						<ul class="controls-list">
+							<li>
+								<div class="controls-preview controls-player controls-side"></div>
+								<div class="controls-button">
+									<div class="controls-button-wrap">
+										<p>Left</p>
+										<span class="icon-arrow-left"></span>
+									</div>
+									<div class="controls-button-wrap">
+										<p>Down</p>
+										<span class="icon-arrow-down"></span>
+									</div>
+									<div class="controls-button-wrap">
+										<p>Right</p>
+										<span class="icon-arrow-right"></span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="controls-preview controls-player controls-up"></div>
+								<div class="controls-button">
+									<div class="controls-button-wrap">
+										<p>Up</p>
+										<span class="icon-arrow-up"></span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="controls-preview controls-player controls-shoot"></div>
+								<div class="controls-button">
+									<div class="controls-button-wrap">
+										<p>Shoot</p>
+										<div class="controls-button-group">
+											<object class="controls-mouse" type="image/svg+xml" data="images/mouse.svg"></object>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="controls-preview controls-preview-scrht"></div>
+								<div class="controls-button">
+									<div class="controls-button-wrap">
+										<p>Pause</p>
+										<span class="icon-letter-p"></span>
+									</div>
+									<div class="controls-button-wrap">
+										<p>Restart</p>
+										<span class="icon-letter-r"></span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section id="screenshots" class="screenshots">
+				<div class="container">
+					<h2>Screenshots</h2>
+					<ul class="screenshots-list container-grid">
+						<li>
+							<figure class><img src="images/scrht1.jpg" alt=""></figure>
+						</li>
+						<li>
+							<figure><img src="images/scrht2.jpg" alt=""></figure>
+						</li>
+						<li>
+							<figure><img src="images/scrht3.jpg" alt=""></figure>
+						</li>
+						<li>
+							<figure><img src="images/scrht4.jpg" alt=""></figure>
+						</li>
+						<li>
+							<figure><img src="images/scrht5.jpg" alt=""></figure>
+						</li>
+						<li>
+							<figure><img src="images/scrht6.jpg" alt=""></figure>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section id="start" class="start">
+				<div class="container">
+					<h2>Start</h2>
+					<div class="button-box">
+						<a href="https://kate-m.github.io/main-game/" class="btn-start">Start Game</a>
+					</div>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div class="container container-grid">
+				<div class="copyright">
+					<p>&copy; Kate Minich 2017</p>
+				</div>
+				<ul class="social container-grid">
+					<li>
+						<a href="https://kate-m.github.io" target="_blank">
+							<span class="icon-github-sign"></span>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/in/ekaterina-minich-61587594/" target="_blank">
+							<span class="icon-linkedin-logo"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+	<script src="js/scripts.js"></script>
+</body>
+
+</html>

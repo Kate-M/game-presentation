@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+  font-family: 'SouthPark';
+  src: url('../fonts/SouthPark/SouthPark.eot?v=4.6.2');
+  src: url('../fonts/SouthPark/SouthPark.eot?#iefix&v=4.6.2') format('embedded-opentype'),
+  url('../fonts/SouthPark/SouthPark.woff2?v=4.6.2') format('woff2'),
+  url('../fonts/SouthPark/SouthPark.woff?v=4.6.2') format('woff'),
+  url('../fonts/SouthPark/SouthPark.ttf?v=4.6.2') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+    font-family: SouthPark;
+}

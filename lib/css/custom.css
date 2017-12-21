@@ -1,0 +1,89 @@
+.reveal h2 {
+    font-size: 1.3em;
+}
+.reveal .flex-container {
+    display: flex;
+}
+
+.reveal .flex-container .wrap-img {
+  width: 30%;
+}
+.reveal .flex-code {
+    width: 100%;
+}
+.reveal .logo-box {
+    max-width: 350px;
+    margin: 0 auto;
+}
+.reveal .game-satate {
+    padding: 20px;
+    border:2px solid lightgoldenrodyellow;
+    color:lightblue;
+}
+.reveal section .img-bullet img {
+    padding: 50px;
+    width: 40px;
+    background: none;
+    border:none;
+}
+
+.reveal section .img-back img {
+    max-width: 100%;
+    box-shadow: none;
+    margin: 20px 0 0 ;
+}
+.reveal section pre {
+    width: 100%;
+}
+.reveal pre  {
+    margin:  0 auto 0 0 ;
+}
+.reveal pre code {
+   max-height: 500px;
+}
+section
+.reveal section figure {
+    max-height: 500px;
+}
+.reveal .path-list {
+    font-size: 0.75rem;
+    color:#222222;
+    
+}
+.reveal .path-list ul li {
+    list-style-type: none;
+}
+.reveal section ol{
+    width: 100%;
+}
+.reveal section  pre{
+    box-shadow: none;
+}
+.reveal section ol.use-list pre{
+    margin:0;
+    line-height: 0;
+}
+.reveal section ol.use-list pre code{
+    margin:0;
+    line-height: 1.2em;
+}
+.reveal section .trick-list {
+    font-size: 0.9em;
+    width: 100%;
+}
+.reveal section .positive-text {
+    color:#77DBAC;
+    font-size: 0.775em;
+}
+.reveal .start {
+    height: 50px;
+    align-self: center;
+    cursor: pointer;
+}
+
+
+.zombie-fon {
+    background: url(../images/back.jpg) no-repeat center;
+    background-size: cover;
+    position: absolute;
+}
